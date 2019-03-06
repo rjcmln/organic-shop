@@ -26,7 +26,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes,
+    { useHash: true } // hash routing is needed for deploying to Netlify
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
