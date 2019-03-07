@@ -20,7 +20,7 @@ export class AuthService {
     localStorage.setItem('returnUrl', returnUrl);
     
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    // This promise should be processed by .then - but library has a bug, then is never reached.
+    // This promise should be processed by .then - but library has a bug, then block is never reached.
   }
 
   logout() {
