@@ -1,8 +1,7 @@
-import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { CanActivate } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,11 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class AdminAuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService) { }
 
   canActivate(): Observable<boolean> {
-    return this.authService.user$
-      .pipe(switchMap(firebaseUser => this.userService.get(firebaseUser.uid)))
+    return this.authService.appUser$
       .pipe(map(appUser => appUser.isAdmin));
   }
 }
