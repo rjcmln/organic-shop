@@ -1,3 +1,4 @@
+import { ProductService } from './../../product.service';
 import { CategoryService } from './../../category.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,8 +11,13 @@ export class ProductFormComponent {
 
   categories$;
 
-  constructor(categoryService: CategoryService) { // no private - it won't be used anywhere outside the constructor
+  // no private for categoryService - it won't be used anywhere outside the constructor
+  constructor(categoryService: CategoryService, private productService : ProductService) {
     this.categories$ = categoryService.getCategories();
+  }
+
+  save(product) {
+    this.productService.create(product);
   }
 
 }
