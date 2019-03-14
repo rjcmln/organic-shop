@@ -21,7 +21,7 @@
         <label for="category">Category</label>
         <select #category="ngModel" ngModel name="category" id="category" class="form-control" required>
           <option *ngFor="let c of categories$ | async" [value]="c.key">
-            {{ c.payload.node_.children_.root_.value.value_ }}
+            {{ c.payload.child('name').val() }}
           </option>
         </select>
         <div class="alert alert-danger" *ngIf="category.touched && category.invalid">Category is required.</div>

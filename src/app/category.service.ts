@@ -12,7 +12,7 @@ export class CategoryService {
     // It doesn't return a key
     //return this.db.list('/categories', ref => ref.orderByChild('name')).valueChanges();
 
-    // It returns a key, but the data is burried deep inside .payload.node_.children_.root_.value.value_
+    // It returns a key, data is inside the payload
     return this.db.list('/categories', ref => ref.orderByChild('name')).snapshotChanges();
   }
 }
