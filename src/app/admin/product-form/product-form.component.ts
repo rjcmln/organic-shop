@@ -13,6 +13,7 @@ export class ProductFormComponent {
 
   categories$;
   product = {};
+  id;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,14 +23,17 @@ export class ProductFormComponent {
 
     this.categories$ = categoryService.getCategories();
 
-    let id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p);
     }
   }
 
   save(product) {
-    this.productService.create(product);
+    if (this.id) this.productService.update(this.id, product);
+    else this.productService.create(product);
+
+    // Do not wait for database changes to be applied before navigating to the other page
     this.router.navigate(['/admin/products']);
   }
 

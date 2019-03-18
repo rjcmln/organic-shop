@@ -19,4 +19,9 @@ export class ProductService {
   get(productId) {
     return this.db.object('/products/' + productId).valueChanges();
   }
+
+  update(productId, product) {
+    // In Firebase product parameter should not have id or key property (it should not be changed in any scenario)
+    return this.db.object('/products/' + productId).update(product);
+  }
 }
