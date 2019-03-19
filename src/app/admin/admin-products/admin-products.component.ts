@@ -1,6 +1,7 @@
 import { ProductService } from './../../product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { query } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-admin-products',
@@ -11,23 +12,23 @@ export class AdminProductsComponent implements OnDestroy {
 
   products: any[];
   fiteredProducts: any[];
+  query : string;
   subscription: Subscription;
 
   constructor(private productService: ProductService) {
     this.subscription = productService.getAll().subscribe(products => {
-      console.log("productService.getAll");
       this.fiteredProducts = this.products = products;
+      this.query = "";
     });
   }
 
-  filter(query: string) {
-    this.fiteredProducts = (query) ?
-      this.products.filter(p => p.payload.child('title').val().toLowerCase().includes(query.toLowerCase())) :
+  filter() {
+    this.fiteredProducts = (this.query) ?
+      this.products.filter(p => p.payload.child('title').val().toLowerCase().includes(this.query.toLowerCase())) :
       this.products;
   }
 
   ngOnDestroy() {
-    console.log("ngOnDestroy");
     this.subscription.unsubscribe();
   }
 }

@@ -2,9 +2,8 @@
   <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 <p>
-  <input 
-  #query
-  (keyup)="filter(query.value)" 
+  <input [(ngModel)]="query"
+  (keyup)="filter()" 
   type="text" class="form-control" placeholder="Search...">
 </p>
 
